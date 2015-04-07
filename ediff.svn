@@ -1,0 +1,4 @@
+#!/bin/sh
+
+test $# -gt 5 && cmd="ediff-files \"$6\" \"$7\"" || cmd="ediff-merge-files-with-ancestor \"$3\" \"$2\" \"$1\" nil \"$4\""
+ediff "$cmd"

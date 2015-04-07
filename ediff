@@ -1,0 +1,31 @@
+#!/bin/sh
+
+test $# = 1 && cmd="$1" || cmd="ediff-files \"$1\" \"$2\""
+
+elisp=$(cat<<EOF
+(progn
+  (add-hook (quote ediff-load-hook)
+    (lambda ()
+      (let ((current-fg "white") (current-bg "DarkSlateBlue") (fine-fg "black") (fine-bg "orange"))
+        (set-face-foreground ediff-current-diff-face-A current-fg)
+        (set-face-background ediff-current-diff-face-A current-bg)
+        (set-face-foreground ediff-current-diff-face-B current-fg)
+        (set-face-background ediff-current-diff-face-B current-bg)
+        (set-face-foreground ediff-current-diff-face-C current-fg)
+        (set-face-background ediff-current-diff-face-C current-bg)
+        (set-face-foreground ediff-fine-diff-face-A fine-fg)
+        (set-face-background ediff-fine-diff-face-A fine-bg)
+        (set-face-foreground ediff-fine-diff-face-B fine-fg)
+        (set-face-background ediff-fine-diff-face-B fine-bg)
+        (set-face-foreground ediff-fine-diff-face-C fine-fg)
+        (set-face-background ediff-fine-diff-face-C fine-bg))))
+  (add-hook (quote ediff-prepare-buffer-hook) (quote linum-mode))
+  (global-font-lock-mode 0)
+  (global-set-key (kbd "C-q") (quote save-buffers-kill-terminal))
+  (setq ediff-split-window-function (quote split-window-horizontally))
+  (setq-default ediff-autostore-merges t)
+  ($cmd))
+EOF
+)
+
+emacs -nw -Q --eval "$elisp" < /dev/tty
