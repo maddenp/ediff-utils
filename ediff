@@ -36,7 +36,7 @@ elisp=$(cat<<EOF
         (set-face-foreground ediff-odd-diff-face-A inactive-fg)
         (set-face-foreground ediff-odd-diff-face-B inactive-fg)
         (set-face-foreground ediff-odd-diff-face-C inactive-fg))))
-  (add-hook (quote ediff-prepare-buffer-hook) (quote linum-mode))
+  (add-hook (quote ediff-prepare-buffer-hook) (progn (setq linum-format "%d ") (quote linum-mode)))
   (global-font-lock-mode 0)
   (global-set-key (kbd "C-q") (quote save-buffers-kill-terminal))
   (set-face-foreground (quote minibuffer-prompt) "white")
