@@ -42,6 +42,7 @@ elisp=$(cat<<EOF
   (set-face-foreground (quote minibuffer-prompt) "white")
   (setq ediff-split-window-function (quote split-window-horizontally))
   (setq-default ediff-autostore-merges t)
+  (setq vc-handled-backends ())
   ($cmd))
 EOF
 )
