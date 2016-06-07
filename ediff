@@ -43,6 +43,7 @@ elisp=$(cat<<EOF
   (setq ediff-split-window-function (quote split-window-horizontally))
   (setq-default ediff-autostore-merges t)
   (setq vc-handled-backends ())
+  (setq make-backup-files nil)
   ($cmd))
 EOF
 )
